@@ -7,6 +7,7 @@ import "./../app/app.css";
 import { Amplify } from "aws-amplify";
 import outputs from "@/amplify_outputs.json";
 import "@aws-amplify/ui-react/styles.css";
+import {FileUploader, StorageImage} from "@aws-amplify/ui-react-storage";
 
 Amplify.configure(outputs);
 
@@ -33,20 +34,13 @@ export default function App() {
 
   return (
     <main>
-      <h1>My todos</h1>
-      <button onClick={createTodo}>+ new</button>
-      <ul>
-        {todos.map((todo) => (
-          <li key={todo.id}>{todo.content}</li>
-        ))}
-      </ul>
-      <div>
-        🥳 App successfully hosted. Try creating a new todo.
-        <br />
-        <a href="https://docs.amplify.aws/nextjs/start/quickstart/nextjs-app-router-client-components/">
-          Review next steps of this tutorial.
-        </a>
-      </div>
+      <FileUploader
+          acceptedFileTypes={['image/*']}
+          path="input/"
+          maxFileCount={1}
+          isResumable
+      />
+      <StorageImage alt="cat" path="input/IMG-20240919-WA0030.jpg " />
     </main>
   );
 }
